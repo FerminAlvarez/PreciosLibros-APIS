@@ -5,11 +5,11 @@ async function findAll(){
     return database.query(`SELECT * FROM ${table}`);
 }
 
-async function insertBook(ISBN){
+async function create(ISBN){
     return database.query(`INSERT INTO ${table} VALUES (${ISBN})`);
 }
 
 module.exports = {
     findAll,
-    insertBook
+    create
 }

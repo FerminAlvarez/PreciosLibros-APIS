@@ -7,7 +7,7 @@ const  {
 
 const router = Router();
 
-router.get('/books', getBooks);
-router.post('/books/:ISBN', insertBook);
+router.get('/books/', getBooks);
+router.post('/books/', insertBook);
 
 module.exports = router;

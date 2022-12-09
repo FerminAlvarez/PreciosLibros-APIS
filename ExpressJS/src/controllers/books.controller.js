@@ -10,8 +10,9 @@ const getBooks = async(req, res ) => {
 }
 
 const insertBook = async(req, res ) => {
-    let ISBN = req.params.ISBN;
-    bookModel.insertBook(ISBN)
+    let ISBN = req.body.ISBN;
+
+    bookModel.create(ISBN)
     .then((result) => {
         res.status(200).json({message: "Book created succesfully"});
     })
