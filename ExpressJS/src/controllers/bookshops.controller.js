@@ -1,6 +1,4 @@
 const database = require('../database/database');
-const utils = require('../utils/utils');
-
 
 const getBookshops = async(req, res) => {
     const responseBookshops = 
