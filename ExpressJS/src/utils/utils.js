@@ -1,4 +1,4 @@
-const database = require('../database');
+const database = require('../database/database');
 
 function compactAuthors(responseBooks, responseAuthors){
     let books = responseBooks.rows;

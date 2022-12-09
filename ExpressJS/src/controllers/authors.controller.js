@@ -1,10 +1,10 @@
-const database = require('../database');
+const database = require('../database/database');
 const utils = require('../utils/utils');
 
 
 const getAuthors = async(req, res) => {
     const responseAuthors = 
-    await database.query('SELECT id, authors.name as name FROM authors');
+    await database.query('SELECT id_author, name FROM authors');
 
     if(responseAuthors.rows.length > 0){
         res.status(200).json(responseAuthors.rows);

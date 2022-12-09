@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const checkAuth = require('../auth').checkAuth;
 const router = Router();
 
 const  suscribersController = require('../controllers/suscribers.controller')
@@ -21,7 +20,7 @@ const  suscribersController = require('../controllers/suscribers.controller')
  *       '404':
  *         description: Not found
  */
-router.get('/suscribers/', checkAuth, suscribersController.getSuscriber);
+router.get('/suscribers/', suscribersController.getSuscriber);
 
 /**
  * @swagger
@@ -50,7 +49,7 @@ router.get('/suscribers/', checkAuth, suscribersController.getSuscriber);
  *       '404':
  *         description: Not found
  */
-router.post('/suscribers/', checkAuth, suscribersController.applySuscription);
+router.post('/suscribers/', suscribersController.applySuscription);
 
 /**
  * @swagger
@@ -79,6 +78,6 @@ router.post('/suscribers/', checkAuth, suscribersController.applySuscription);
  *       '404':
  *         description: Not found
  */
-router.delete('/suscribers/', checkAuth, suscribersController.removeSuscription);
+router.delete('/suscribers/', suscribersController.removeSuscription);
 
 module.exports = router;

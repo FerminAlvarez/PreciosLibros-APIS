@@ -1,4 +1,4 @@
-const database = require('../database');
+const database = require('../database/database');
 const axios = require('axios');
 const { json } = require('express/lib/response');
 const utils = require('../utils/utils');

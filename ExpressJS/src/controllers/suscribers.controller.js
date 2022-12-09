@@ -1,5 +1,4 @@
-const database = require('../database');
-const getUserInfoFromToken = require('../auth').getUserInfoFromToken;
+const database = require('../database/database');
 const createUser = require('../utils/utils').createUser;
 const utils = require('../utils/utils');
 
