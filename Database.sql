@@ -3,6 +3,8 @@ DROP TABLE bookshops_services;
 DROP TABLE books;
 DROP TABLE bookshops;
 
+SET TIMEZONE TO 'America/Argentina/Buenos_Aires';
+
 CREATE TABLE books (
 	ISBN VARCHAR(20) PRIMARY KEY NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
