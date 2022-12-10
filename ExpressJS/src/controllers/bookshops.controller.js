@@ -9,8 +9,19 @@ const getBookshops = async(req, res ) => {
         res.status(404).json({error: 'Not Found'}); 
 }
 
+const getBookshop = async(req, res ) => {
+    let ID = req.params.ID;
+    
+    const bookshops = await bookshopModel.findAllBooks(ID);
+
+    if(bookshops.rows.length>0)
+        res.status(200).json(bookshops.rows);
+    else
+        res.status(404).json({error: 'Not Found'}); 
+}
+
 const insertBookshop = async(req, res ) => {
-    let ID = req.body.ID;
+    let ID = req.params.ID;
     let name = req.body.name;
 
     bookshopModel.create(ID, name)
@@ -26,5 +37,6 @@ const insertBookshop = async(req, res ) => {
 
 module.exports = {
     getBookshops,
+    getBookshop,
     insertBookshop
 }
