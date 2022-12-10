@@ -45,6 +45,38 @@ router.get('/bookshops/', getBookshops);
  *         description: Not Found
  */
 router.get('/bookshops/:ID', getBookshop);
+
+
+/**
+ * @swagger
+ * /bookshops/{ID}:
+ *   post:
+ *     description: Use to save a bookshop.
+ *     tags:
+ *       - Bookshop
+ *     operationId: placeOrder
+ *     parameters:
+ *       - name: ID
+ *         in: path
+ *         description: ID of the bookshop
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Librería X
+ *     responses:
+ *       '200':
+ *         description: Sucessful response
+ *       '500':
+ *         description: Error saving bookshop
+ */
 router.post('/bookshops/:ID', insertBookshop);
 
 module.exports = router;
