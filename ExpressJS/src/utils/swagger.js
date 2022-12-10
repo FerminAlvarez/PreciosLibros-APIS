@@ -1,5 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
+const path = require("path")
 
 const options = {
     swaggerDefinition : {
@@ -9,7 +10,7 @@ const options = {
             version: '1.0.0'
         }
     },
-    apis : ['./src/components/attributes/routes.js']
+    apis: [`${path.join(__dirname, "../routes/*.router.js")}`],
 }
 
 const swaggerSpec = swaggerJSDoc(options);
