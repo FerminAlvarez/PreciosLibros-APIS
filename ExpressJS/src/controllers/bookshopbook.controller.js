@@ -5,8 +5,8 @@ const getBookshopBook = async(req, res ) => {
     let ID = req.params.ID;
     let ISBN = req.params.ISBN;
     
-    const serviceData = await broker.getBookshopBookServiceData(ID, ISBN);
     try {
+        const serviceData = await broker.getBookshopBookServiceData(ID, ISBN);
         await bookshopBookModel.create(ID, ISBN, serviceData.titulo, serviceData.precio, serviceData.link, serviceData.link_imagen);
     } catch (error) {
         console.log("Error saving bookshop-book" + error);

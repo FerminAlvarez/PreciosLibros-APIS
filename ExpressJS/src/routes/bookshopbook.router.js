@@ -19,6 +19,8 @@ const router = Router();
  *         name: ID
  *         schema:
  *           type: integer
+ *           minimum: 1
+ *           maximum: 32767
  *         required: true
  *         description: ID of the bookstore
  *       - in: path

@@ -20,9 +20,13 @@ async function getBookshopsBookServiceData(ISBN) {
 async function getArrayServiceBookshopsBookServiceData(URLObject, ISBN){
     let promises = [];
     for await (itemURL of URLObject){
-        promises.push(await service.getBookPrice(itemURL.url, ISBN).then( 
-            (data) => {return {id_bookshop: itemURL.id_bookshop, ISBN: ISBN, ...data }}
-        ));
+        try {
+            promises.push(await service.getBookPrice(itemURL.url, ISBN).then( 
+                (data) => {return {id_bookshop: itemURL.id_bookshop, ISBN: ISBN, ...data }}
+            ));
+        } catch (error) {
+            console.log("Book not founded on service");
+        }
     }
     return await Promise.all(promises);
 }
