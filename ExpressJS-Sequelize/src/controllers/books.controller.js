@@ -3,8 +3,8 @@ const bookModel = require('../models/books.model');
 const getBooks = async(req, res ) => {
     const books = await bookModel.findAll();
 
-    if(books.rows.length>0)
-        res.status(200).json(books.rows);
+    if(books.length>0)
+        res.status(200).json(books);
     else
         res.status(404).json({error: 'Not Found'}); 
 }
@@ -12,13 +12,14 @@ const getBooks = async(req, res ) => {
 const insertBook = async(req, res ) => {
     let ISBN = req.body.ISBN;
 
-    bookModel.create(ISBN)
-    .then((result) => {
+    try{
+        await bookModel.create({
+            ISBN
+        })
         res.status(200).json({message: "Book created succesfully"});
-    })
-    .catch ((error)=> {
-        res.status(500).json({message: "Something went wrong "});
-    });
+    } catch (error){
+        return res.status(400).json({message: "Something went wrong "});
+    }    
 }
 
 

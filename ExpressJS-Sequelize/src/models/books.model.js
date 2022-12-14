@@ -1,15 +1,22 @@
-const database = require('../database/database');
-const table = "books";
+const { DataTypes } = require('sequelize');
+const {sequelize} = require('../database/database');
 
-async function findAll(){
-    return database.query(`SELECT * FROM ${table}`);
-}
+const book = sequelize.define('book', {
+    ISBN: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        autoIncrement: false
+    },
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
+  } 
+})
 
-async function create(ISBN){
-    return database.query(`INSERT INTO ${table} VALUES (${ISBN})`);
-}
-
-module.exports = {
-    findAll,
-    create
-}
+module.exports = book;
