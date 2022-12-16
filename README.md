@@ -14,6 +14,4 @@ En este caso la implementación se realizó con ExpressJS junto con Sequelize y 
 
 #### Pendientes
 - Fastify
-- Nest Js
-- Meteor JS
 - Adonis JS
