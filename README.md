@@ -13,7 +13,6 @@ En este caso la implementación se realizó con ExpressJS y se puede acceder [aq
 En este caso la implementación se realizó con ExpressJS junto con Sequelize y se puede acceder [aquí.](/ExpressJS-Sequelize)
 
 #### Pendientes
-- Express JS + Sequelize
 - Fastify
 - Nest Js
 - Meteor JS
