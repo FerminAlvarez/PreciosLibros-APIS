@@ -9,9 +9,11 @@ La idea base que se buscará aplicar en los distintos frameworks es la siguiente
 ### Express JS
 En este caso la implementación se realizó con ExpressJS y se puede acceder [aquí.](/ExpressJS)
 
+### Express JS + Sequelize
+En este caso la implementación se realizó con ExpressJS junto con Sequelize y se puede acceder [aquí.](/ExpressJS-Sequelize)
+
 #### Pendientes
 - Express JS + Sequelize
-- Express Js + Sequelize + Typescript
 - Fastify
 - Nest Js
 - Meteor JS
