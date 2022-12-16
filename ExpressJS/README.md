@@ -1,5 +1,8 @@
 # Precios Libros API - Implementación con ExpressJS
 
+## Cosas pendientes y mejoras
+- Se podría realizar un análisis de si en grandes proyectos, una organización de carpetas por componentes y no por funcionalidad (Modelo, Controlador, Ruta) permite mayor ágilidad y trae un beneficio cambiarlo.
+
 ## Instalación
 Pasos para la implementación
 
@@ -12,7 +15,7 @@ Debemos configurar la base de datos con el archivo que se encuentra en la carpet
 ```shell
 cd PreciosLibros-APIS/
 cd ExpressJS/
-npm start
+npm install
 npm run dev
 ```
 
