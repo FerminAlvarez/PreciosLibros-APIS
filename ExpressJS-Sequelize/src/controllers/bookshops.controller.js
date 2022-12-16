@@ -1,10 +1,12 @@
 const bookshopModel = require('../models/bookshops.model');
+const bookshopbook = require('../models/bookshopbook.model');
+
 
 const getBookshops = async(req, res ) => {
     const bookshops = await bookshopModel.findAll();
 
-    if(bookshops.rows.length>0)
-        res.status(200).json(bookshops.rows);
+    if(bookshops.length>0)
+        res.status(200).json(bookshops);
     else
         res.status(404).json({error: 'Not Found'}); 
 }
@@ -12,10 +14,10 @@ const getBookshops = async(req, res ) => {
 const getBookshop = async(req, res ) => {
     let ID = req.params.ID;
     
-    const bookshops = await bookshopModel.findAllBooks(ID);
+    const bookshops = await bookshopbook.findAll({where: {ID_bookshop : ID}})
 
-    if(bookshops.rows.length>0)
-        res.status(200).json(bookshops.rows);
+    if(bookshops.length>0)
+        res.status(200).json(bookshops);
     else
         res.status(404).json({error: 'Not Found'}); 
 }
@@ -24,7 +26,7 @@ const insertBookshop = async(req, res ) => {
     let ID = req.params.ID;
     let name = req.body.name;
 
-    bookshopModel.create(ID, name)
+    bookshopModel.create({ID_bookshop: ID, name: name})
     .then((result) => {
         res.status(200).json({message: "Bookshop created succesfully"});
     })

@@ -1,33 +1,65 @@
-const database = require('../database/database');
-const bookModel = require('./books.model');
-const table = "bookshop_book";
+const { DataTypes } = require('sequelize');
+const {sequelize} = require('../database/database');
+const book = require('./books.model');
+const bookshop = require('./bookshops.model');
 
-function createBookshopBookObject(ID_bookshop, ISBN, title, price, url, image){
-    return {
-        ID_bookshop: ID_bookshop,
-        ISBN: ISBN,
-        title: title, 
-        price: price,
-        url: url,
-        image: image
+const bookshopbook = sequelize.define('bookshopbooks', {
+    ID: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+    ISBN: {
+        type: DataTypes.STRING,
+        primaryKey: true
+    },
+    ID_bookshop: {
+        type: DataTypes.SMALLINT,
+        primaryKey: true,
+        allowNull: false
+    },
+    title: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    price: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    url: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    image: {
+        type: DataTypes.TEXT
+    },
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
+  } 
+})
+
+bookshopbook.hasOne(book, {
+    onDelete: 'UPDATE',
+    onUpdate: 'UPDATE',
+    foreignKey: {
+        name: 'ISBN'
     }
-}
+})
 
-async function findOne(ID_bookshop, ISBN){
-    return database.query(`SELECT id_bookshop, ISBN, price, title, url, image, createdat as updatedat FROM ${table} WHERE ISBN = '${ISBN}' AND id_bookshop = '${ID_bookshop}' ORDER BY createdat DESC;`);
-}
-
-async function create(ID_bookshop, ISBN, title, price, url, image){
-    try {
-        await bookModel.create(ISBN);
-    } catch (error) {
-        console.log("Error saving book to use with bookshopbook" + error);
+bookshopbook.hasOne(bookshop, {
+    onDelete: 'UPDATE',
+    onUpdate: 'UPDATE',
+    foreignKey: {
+        name: 'ID_bookshop'
     }
-    return database.query(`INSERT INTO ${table}(id_bookshop, ISBN, title, price, url, image) VALUES ('${ID_bookshop}' , '${ISBN}' , '${title}' , '${price}' , '${url}', '${image}')`);
-}
+})
 
-module.exports = {
-    findOne,
-    create,
-    createBookshopBookObject
-}
+module.exports = bookshopbook;

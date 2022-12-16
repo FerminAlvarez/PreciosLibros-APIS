@@ -1,4 +1,5 @@
 const bookshopBookModel = require('../models/bookshopbook.model');
+const bookModel = require('../models/books.model');
 const broker = require('../utils/broker');
 
 const getBookshopBook = async(req, res ) => {
@@ -7,35 +8,72 @@ const getBookshopBook = async(req, res ) => {
     
     try {
         const serviceData = await broker.getBookshopBookServiceData(ID, ISBN);
-        await bookshopBookModel.create(ID, ISBN, serviceData.titulo, serviceData.precio, serviceData.link, serviceData.link_imagen);
+
+        await bookshopBookModel.create({
+            ID_bookshop : ID, 
+            ISBN : ISBN, 
+            title: serviceData.titulo, 
+            price: serviceData.precio, 
+            url: serviceData.link, 
+            image: serviceData.link_imagen}
+        );
+
+        let bookshopBook = await bookshopBookModel.findAll({
+            where: {
+                ISBN: ISBN,
+                ID_bookshop: ID
+            },
+            order: [ 
+                ['createdAt', 'DESC'],
+            ],
+        })
+    
+        if(bookshopBook !== undefined)
+            res.status(200).json(bookshopBook);
+        else
+            res.status(404).json({error: 'Not Found'}); 
+
     } catch (error) {
         console.log("Error saving bookshop-book" + error);
     }
 
-    const bookshopbook = await bookshopBookModel.findOne(ID, ISBN);
-
-    if(bookshopbook.rows.length>0)
-        res.status(200).json(bookshopbook.rows);
-    else
-        res.status(404).json({error: 'Not Found'}); 
+   
 }
 
 const getBookshopsBook = async(req, res ) => {
     let ISBN = req.params.ISBN;
     let promises = [];
-    let bookshopbooks = [];
     
     let serviceData = await broker.getBookshopsBookServiceData(ISBN);
-    for await (item of serviceData){
+
+    for (let i = 0; i < serviceData.length; i++){
         try {
-            promises.push(await bookshopBookModel.create(item.id_bookshop, item.ISBN, item.titulo, item.precio, item.link, item.link_imagen));
-            bookshopbooks.push(bookshopBookModel.createBookshopBookObject(item.id_bookshop, item.ISBN, item.titulo, item.precio, item.link, item.link_imagen));
+            let item = serviceData[i];
+            console.log(item);
+            promises.push(await bookshopBookModel.create({
+                ID_bookshop : item.id_bookshop,
+                ISBN: item. ISBN,
+                title: item.titulo,
+                price: item.precio,
+                url: item.link,
+                image: item.link_imagen
+            }));
         } catch (error) {
             console.log("Error saving bookshop-book" + error);
         }
     }
 
     Promise.all(promises);
+
+    let bookshopbooks = await bookshopBookModel.findAll({
+        where: {
+            ISBN: ISBN
+        },
+        order: [ 
+            ['createdAt', 'DESC'],
+        ],
+        limit: 5
+    })
 
     if(bookshopbooks.length>0)
         res.status(200).json(bookshopbooks);
